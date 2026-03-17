@@ -20,7 +20,17 @@ public class PatientService {
                 return p;
             }
         }
-        return null;    //si no lo encuentra retorna un null, sofi ahi lo podes cambiar o te puede dar una idea esta parte
+        return null;    //si no lo encuentra retorna un null,
+    }
+
+    public List<Patient> buscarporNombre (String nombre) {
+        List<Patient> resultados = new ArrayList<>();
+        for (Patient p : pacientes) {
+            if(p.getNombre().equalsIgnoreCase(nombre)) {
+                resultados.add(p);
+            }
+        }
+        return resultados;
     }
 
     public List<Patient> getPacientes() {
