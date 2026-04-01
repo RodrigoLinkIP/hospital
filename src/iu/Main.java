@@ -5,6 +5,8 @@ import service.DoctorService;
 import model.Patient;
 import model.Doctor;
 import java.util.Scanner;
+import service.AppointmentService;
+import model.Appointment;
 
 public class Main {
     public static void main(String[] args) {
@@ -12,6 +14,7 @@ public class Main {
         PatientService patientService = new PatientService();
         DoctorService doctorService = new DoctorService();
         SearchDoctor searchDoctor = new SearchDoctor(doctorService);
+        AppointmentService appointmentService = new AppointmentService();
 
         int opcion;
         do {
@@ -21,6 +24,8 @@ public class Main {
             System.out.println("3. Registrar Doctor");
             System.out.println("4. Buscar Doctor por ID");
             System.out.println("5. Listar Doctores");
+            System.out.println("6. Crear cita");
+            System.out.println("7. Ver citas");
             System.out.println("0. Salir");
             System.out.print("Seleccione una opción: ");
             opcion = scanner.nextInt();
@@ -75,6 +80,51 @@ public class Main {
                     System.out.println("Lista de doctores:");
                     for (Doctor d : doctorService.getDoctores()) {
                         System.out.println(d);
+                    }
+                    break;
+
+                case 6:
+                    System.out.print("ID del paciente: ");
+                    int idPaciente = scanner.nextInt();
+                    scanner.nextLine();
+
+                    Patient pacienteCita = patientService.buscarPorId(idPaciente);
+
+                    if (pacienteCita == null) {
+                        System.out.println("Paciente no encontrado");
+                        break;
+                    }
+
+                    System.out.print("ID del doctor: ");
+                    int idDoctor = scanner.nextInt();
+                    scanner.nextLine();
+
+                    Doctor doctorCita = doctorService.buscarPorId(idDoctor);
+
+                    if (doctorCita == null) {
+                        System.out.println("Doctor no encontrado");
+                        break;
+                    }
+
+                    System.out.print("Fecha: ");
+                    String fechaCita = scanner.nextLine();
+
+                    System.out.print("Hora: ");
+                    String hora = scanner.nextLine();
+
+                    Appointment nuevaCita = appointmentService.crearCita(pacienteCita, doctorCita, fechaCita, hora);
+
+                    if (nuevaCita != null) {
+                        System.out.println("Cita creada:");
+                        System.out.println(nuevaCita);
+                    }
+
+                    break;
+
+                case 7:
+                    for (Appointment c : appointmentService.getCitas()) {
+                        System.out.println(c);
+                        System.out.println("-----------");
                     }
                     break;
 
