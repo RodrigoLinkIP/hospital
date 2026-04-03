@@ -77,4 +77,6 @@ public class SearchPatient {
             continuar = scanner.nextLine();
         } while (continuar.equalsIgnoreCase("si"));
     }
+
+
 }

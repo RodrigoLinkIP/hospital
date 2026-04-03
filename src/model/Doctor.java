@@ -30,12 +30,11 @@ public class Doctor {
 
     @Override
     public String toString() {
-        return "Doctor{" +
-                "id=" + id +
-                ", nombre='" + nombre + '\'' +
-                ", apellido='" + apellido + '\'' +
-                ", especialidad='" + especialidad + '\'' +
-                ", licencia='" + licencia + '\'' +
-                '}';
+        return "Doctor ID: " + id + "\n" +
+                "Nombre: " + nombre + " " + apellido + "\n" +
+                "Especialidad: " + especialidad + "\n" +
+                "Licencia: " + licencia + "\n" +
+                "Teléfono: " + telefono + "\n";
     }
+
 }

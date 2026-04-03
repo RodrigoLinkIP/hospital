@@ -1,12 +1,16 @@
 package iu;
 
+import persistence.FileStorage;
 import service.PatientService;
 import service.DoctorService;
 import model.Patient;
 import model.Doctor;
+import model.Appointment;
+import model.MedicalRecord;
 import java.util.Scanner;
 import service.AppointmentService;
-import model.Appointment;
+
+import javax.swing.plaf.synth.SynthTextAreaUI;
 
 public class Main {
     public static void main(String[] args) {
@@ -15,6 +19,7 @@ public class Main {
         DoctorService doctorService = new DoctorService();
         SearchDoctor searchDoctor = new SearchDoctor(doctorService);
         AppointmentService appointmentService = new AppointmentService();
+        FileStorage storage = new FileStorage();
 
         int opcion;
         do {
@@ -26,6 +31,7 @@ public class Main {
             System.out.println("5. Listar Doctores");
             System.out.println("6. Crear cita");
             System.out.println("7. Ver citas");
+            System.out.println("8. Agregar nota medica");
             System.out.println("0. Salir");
             System.out.print("Seleccione una opción: ");
             opcion = scanner.nextInt();
@@ -126,6 +132,33 @@ public class Main {
                         System.out.println(c);
                         System.out.println("-----------");
                     }
+                    break;
+
+                case 8:
+                    System.out.print("Estos son los medicos disponibles:");
+                    for (Doctor d : doctorService.getDoctores()) {
+                        System.out.println(d);
+                    }
+                    System.out.print("Ingrese el ID del doctor que desees usar:");
+                    int docId = scanner.nextInt();
+
+                    System.out.println("Estos son los pacientes disponibles:");
+                    patientService.mostrarPacientes();
+
+                    System.out.println("Ingrese el ID del paciente al que le desee agregar una nota médica:");
+                    int patientId = scanner.nextInt();
+                    scanner.nextLine();
+
+                    System.out.print("Ingrese la descripción medica del paciente:");
+                    String description = scanner.nextLine();
+
+                    System.out.print("Ingrese la fecha:");
+                    String date = scanner.nextLine();
+                    MedicalRecord record = storage.addRecord(docId, patientId, date, description);
+                    break;
+
+                case 9:
+                    storage.showMedicalRecords();
                     break;
 
                 case 0:

@@ -33,6 +33,13 @@ public class PatientService {
         return resultados;
     }
 
+    public void mostrarPacientes() {
+        for (Patient p : pacientes) {
+            System.out.println(p);
+        }
+    }
+
+
     public List<Patient> getPacientes() {
         return pacientes;
     }
