@@ -4,12 +4,13 @@ import model.Doctor;
 import model.MedicalRecord;
 import model.Patient;
 import service.DoctorService;
-
+import model.Appointment;
 import java.util.ArrayList;
 import java.util.List;
 
 public class FileStorage {
     private List<MedicalRecord> medicalRecords = new ArrayList<>();
+    private List<Appointment> appointments = new ArrayList<>();
     private int recordId = 1;
 
     public MedicalRecord addRecord(int doctorId,int patientId, String date, String description){
@@ -24,4 +25,11 @@ public class FileStorage {
         }
     }
 
+    public void saveAppointment(Appointment appointment){
+        appointments.add(appointment);
+    }
+
+    public List<Appointment> getAppointments(){
+        return appointments;
+    }
 }
