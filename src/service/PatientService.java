@@ -1,21 +1,22 @@
 package service;
 
 import model.Patient;
+import persistence.FileStorage;
 import java.util.ArrayList;
 import java.util.List;
 
 public class PatientService {
-    private List<Patient> pacientes = new ArrayList<>();
+    private FileStorage storage = new FileStorage();
     private int contadorId = 1;
 
     public Patient registrarPaciente(String nombre, String apellido, String fechaNacimiento, String telefono) {
         Patient paciente = new Patient(contadorId++, nombre, apellido, fechaNacimiento, telefono);
-        pacientes.add(paciente);
+        storage.savePatient(paciente);
         return paciente;
     }
 
     public Patient buscarPorId(int id) {    //para buscar a los pacientes
-        for (Patient p : pacientes) {
+        for (Patient p : storage.getPatients()) {
             if (p.getId() == id) {
                 return p;
             }
@@ -25,7 +26,7 @@ public class PatientService {
 
     public List<Patient> buscarporNombre (String nombre) {
         List<Patient> resultados = new ArrayList<>();
-        for (Patient p : pacientes) {
+        for (Patient p : storage.getPatients()) {
             if(p.getNombre().equalsIgnoreCase(nombre)) {
                 resultados.add(p);
             }
@@ -34,13 +35,13 @@ public class PatientService {
     }
 
     public void mostrarPacientes() {
-        for (Patient p : pacientes) {
+        for (Patient p : storage.getPatients()) {
             System.out.println(p);
         }
     }
 
 
     public List<Patient> getPacientes() {
-        return pacientes;
+        return storage.getPatients();
     }
 }
