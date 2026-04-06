@@ -1,13 +1,16 @@
 package service;
 
 import model.Doctor;
-
-import java.util.ArrayList;
+import persistence.FileStorage;  // Importa la clase FileStorage
 import java.util.List;
 
 public class DoctorService {
-    private List<Doctor> doctores = new ArrayList<>();
-    private int contadorId = 1;
+    private FileStorage storage;
+    private int contadorId = 0;
+
+    public DoctorService(FileStorage storage) {
+        this.storage = storage;
+    }
 
     public Doctor registrarDoctor(String nombre, String apellido, String fechaNacimiento,
                                   String telefono, String especialidad, String licencia) {
@@ -16,7 +19,7 @@ public class DoctorService {
             return null;
         }
 
-        for (Doctor d : doctores) {
+        for (Doctor d : storage.getDoctores()) {
             if (d.getLicencia().equalsIgnoreCase(licencia)) {
                 System.out.println("Ya existe un doctor con esa licencia.");
                 return null;
@@ -24,12 +27,12 @@ public class DoctorService {
         }
 
         Doctor doctor = new Doctor(contadorId++, nombre, apellido, fechaNacimiento, telefono, especialidad, licencia);
-        doctores.add(doctor);
+        storage.guardarDoctor(doctor);
         return doctor;
     }
 
     public Doctor buscarPorId(int id) {
-        for (Doctor d : doctores) {
+        for (Doctor d : storage.getDoctores()) {
             if (d.getId() == id) {
                 return d;
             }
@@ -38,6 +41,6 @@ public class DoctorService {
     }
 
     public List<Doctor> getDoctores() {
-        return doctores;
+        return storage.getDoctores();
     }
 }
