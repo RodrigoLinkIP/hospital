@@ -128,7 +128,7 @@ public class Main {
                     break;
 
                 case 7:
-                    for (Appointment c : appointmentService.getCitas()) {
+                    for (Appointment c : storage.getAppointments()) {
                         System.out.println(c);
                         System.out.println("-----------");
                     }

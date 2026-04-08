@@ -12,6 +12,7 @@ public class FileStorage {
     private List<MedicalRecord> medicalRecords = new ArrayList<>();
     private List<Appointment> appointments = new ArrayList<>();
     private List<Patient> patients = new ArrayList<>();
+    private List<Doctor> doctors = new ArrayList<>();
     private int recordId = 1;
 
     public MedicalRecord addRecord(int doctorId,int patientId, String date, String description){
@@ -40,5 +41,13 @@ public class FileStorage {
 
     public List<Patient> getPatients() {
         return patients;
+    }
+
+    public List<Doctor> getDoctores() {
+        return doctors;
+    }
+
+    public void guardarDoctor(Doctor doctor) {
+        doctors.add(doctor);
     }
 }

@@ -5,12 +5,8 @@ import persistence.FileStorage;  // Importa la clase FileStorage
 import java.util.List;
 
 public class DoctorService {
-    private FileStorage storage;
-    private int contadorId = 0;
-
-    public DoctorService(FileStorage storage) {
-        this.storage = storage;
-    }
+    private FileStorage storage = new FileStorage();
+    private int contadorId = 1;
 
     public Doctor registrarDoctor(String nombre, String apellido, String fechaNacimiento,
                                   String telefono, String especialidad, String licencia) {
@@ -18,6 +14,7 @@ public class DoctorService {
             System.out.println("Todos los campos son obligatorios.");
             return null;
         }
+
 
         for (Doctor d : storage.getDoctores()) {
             if (d.getLicencia().equalsIgnoreCase(licencia)) {
